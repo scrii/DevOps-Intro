@@ -26,7 +26,22 @@ on:
 jobs:
   print-tag:
     runs-on: ubuntu-latest
-    if: ${{ inputs.print_tags }} 
+    if: ${{ inputs.print_tags == 'true' }}
     steps:
       - name: Print the input tag to STDOUT
-        run: echo  The tags are ${{ inputs.tags }}
+        run: echo "The tags are ${{ inputs.tags }}"
+
+      - name: Collect system information
+        run: |
+          echo "OS: ${{ runner.os }}"
+          echo "Runner name: ${{ runner.name }}"
+          echo "Runner architecture: ${{ runner.arch }}"
+          echo "OS Details"
+          uname -a
+          cat /etc/os-release
+          echo "1. CPU Information"
+          lscpu
+          echo "2. Memory Information"
+          free -h
+          echo "3. Disk Information"
+          df -h
